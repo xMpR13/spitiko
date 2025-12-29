@@ -9,24 +9,60 @@
       name="description"
       content="SPITIKO – premium flame-grilled burgers, ribs, and artisan drinks."
     />
+    <meta
+      name="keywords"
+      content="burger, ribs, restaurant, flame-grilled, food, delivery"
+    />
 
-    <!-- PWA -->
+    <!-- PWA Manifest -->
     <link rel="manifest" href="manifest.json" />
     <meta name="theme-color" content="#ff9800" />
+
+    <!-- Preload Images for Faster First Load -->
+    <link
+      rel="preload"
+      as="image"
+      href="https://images.unsplash.com/photo-1550547660-d9450f859349?auto=format&fit=crop&w=800&q=80"
+    />
+    <link
+      rel="preload"
+      as="image"
+      href="https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&w=800&q=80"
+    />
+    <link
+      rel="preload"
+      as="image"
+      href="https://images.unsplash.com/photo-1572490122747-3968b75cc699?auto=format&fit=crop&w=800&q=80"
+    />
+    <link
+      rel="preload"
+      as="image"
+      href="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg"
+    />
+
     <style>
+      :root {
+        --primary-orange: #ff9800;
+        --background-dark: #0b0b0b;
+        --card-dark: #151515;
+        --text-light: #fff;
+        --text-muted: #aaa;
+      }
+
       * {
         margin: 0;
         padding: 0;
         box-sizing: border-box;
         font-family: Arial, Helvetica, sans-serif;
       }
-
+      html {
+        scroll-behavior: smooth;
+      }
       body {
-        background: #0b0b0b;
-        color: white;
+        background: var(--background-dark);
+        color: var(--text-light);
       }
 
-      /* NAV */
       nav {
         position: fixed;
         top: 0;
@@ -46,14 +82,14 @@
       }
 
       nav a {
-        color: white;
+        color: var(--text-light);
         text-decoration: none;
         margin-left: 20px;
         font-weight: bold;
       }
 
       nav a:hover {
-        color: orange;
+        color: var(--primary-orange);
       }
 
       .menu-toggle {
@@ -64,6 +100,9 @@
 
       .nav-links {
         display: flex;
+      }
+      .nav-links.active {
+        display: flex !important;
       }
 
       @media (max-width: 768px) {
@@ -85,7 +124,6 @@
         }
       }
 
-      /* SECTIONS */
       section {
         padding: 100px 20px;
       }
@@ -97,24 +135,23 @@
         justify-content: center;
         align-items: center;
         text-align: center;
+        background: linear-gradient(135deg, #111 0%, #222 100%);
       }
 
       .hero h1 {
         font-size: 4rem;
       }
-
       .hero p {
         margin-top: 15px;
         max-width: 500px;
-        color: #aaa;
+        color: var(--text-muted);
       }
-
       .hero button {
         margin-top: 30px;
         padding: 15px 40px;
         border-radius: 30px;
         border: none;
-        background: orange;
+        background: var(--primary-orange);
         font-weight: bold;
         cursor: pointer;
       }
@@ -123,23 +160,20 @@
         max-width: 1200px;
         margin: auto;
       }
-
       h2 {
         text-align: center;
         font-size: 3rem;
         margin-bottom: 60px;
       }
 
-      /* GRID */
       .grid {
         display: grid;
         grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
         gap: 30px;
       }
 
-      /* CARD */
       .card {
-        background: #151515;
+        background: var(--card-dark);
         border-radius: 16px;
         overflow: hidden;
         transition: 0.4s;
@@ -155,50 +189,48 @@
         height: 220px;
         object-fit: cover;
       }
-
       .card-content {
         padding: 20px;
       }
-
       .card p {
         margin-top: 10px;
         color: #999;
       }
-
       .price {
         margin-top: 15px;
-        color: orange;
+        color: var(--primary-orange);
         font-weight: bold;
       }
 
       .order-btn {
+        display: inline-block;
         margin-top: 15px;
         padding: 12px;
         width: 100%;
+        text-align: center;
         border: none;
-        background: orange;
+        background: var(--primary-orange);
         font-weight: bold;
+        color: #fff;
+        text-decoration: none;
         cursor: pointer;
+        border-radius: 8px;
       }
-
       .order-btn:hover {
         background: #ffb347;
       }
 
-      /* CONTACT */
       .contact {
         background: #111;
         text-align: center;
       }
-
       .contact-info {
         margin-top: 30px;
         line-height: 2;
       }
-
       iframe {
         width: 100%;
-        height: 350px;
+        aspect-ratio: 4/3;
         border: 0;
         margin-top: 40px;
         border-radius: 16px;
@@ -210,7 +242,6 @@
         color: #666;
       }
 
-      /* FLOATING WHATSAPP */
       .whatsapp-float {
         position: fixed;
         bottom: 20px;
@@ -232,8 +263,6 @@
         width: 28px;
         height: 28px;
       }
-
-      /* PULSE EFFECT */
       .whatsapp-float::before {
         content: "";
         position: absolute;
@@ -255,6 +284,31 @@
         }
         100% {
           opacity: 0;
+        }
+      }
+
+      /* Install Button Animation */
+      #installBtn {
+        animation: pulseInstall 2s infinite;
+      }
+
+      #installBtn:hover {
+        transform: scale(1.1);
+        transition: transform 0.3s;
+      }
+
+      @keyframes pulseInstall {
+        0% {
+          transform: scale(1);
+          opacity: 0.9;
+        }
+        50% {
+          transform: scale(1.1);
+          opacity: 1;
+        }
+        100% {
+          transform: scale(1);
+          opacity: 0.9;
         }
       }
     </style>
@@ -285,12 +339,12 @@
     <section id="menu">
       <div class="container">
         <h2>Our Menu</h2>
-
         <div class="grid">
           <div class="card">
             <img
-              src="https://images.unsplash.com/photo-1550547660-d9450f859349"
-              alt="Burger"
+              src="https://images.unsplash.com/photo-1550547660-d9450f859349?auto=format&fit=crop&w=800&q=80"
+              alt="Classic Flame Burger with cheddar and caramelized onions"
+              loading="lazy"
             />
             <div class="card-content">
               <h3>Classic Flame Burger</h3>
@@ -298,16 +352,17 @@
               <div class="price">R129</div>
               <a
                 href="https://wa.me/27710991305?text=Hi%20SPITIKO,%20I%20would%20like%20to%20order%20the%20Classic%20Flame%20Burger"
+                class="order-btn"
+                >Order on WhatsApp</a
               >
-                <button class="order-btn">Order on WhatsApp</button>
-              </a>
             </div>
           </div>
 
           <div class="card">
             <img
-              src="https://images.unsplash.com/photo-1544025162-d76694265947"
-              alt="Ribs"
+              src="https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&w=800&q=80"
+              alt="Slow-cooked Smoked BBQ Ribs"
+              loading="lazy"
             />
             <div class="card-content">
               <h3>Smoked BBQ Ribs</h3>
@@ -315,16 +370,17 @@
               <div class="price">R219</div>
               <a
                 href="https://wa.me/27710991305?text=Hi%20SPITIKO,%20I%20would%20like%20to%20order%20the%20Smoked%20BBQ%20Ribs"
+                class="order-btn"
+                >Order on WhatsApp</a
               >
-                <button class="order-btn">Order on WhatsApp</button>
-              </a>
             </div>
           </div>
 
           <div class="card">
             <img
-              src="https://images.unsplash.com/photo-1572490122747-3968b75cc699"
-              alt="Milkshake"
+              src="https://images.unsplash.com/photo-1572490122747-3968b75cc699?auto=format&fit=crop&w=800&q=80"
+              alt="Craft Milkshakes: Vanilla, Chocolate, Strawberry, Oreo"
+              loading="lazy"
             />
             <div class="card-content">
               <h3>Craft Milkshakes</h3>
@@ -332,9 +388,9 @@
               <div class="price">R59</div>
               <a
                 href="https://wa.me/27710991305?text=Hi%20SPITIKO,%20I%20would%20like%20to%20order%20a%20Craft%20Milkshake"
+                class="order-btn"
+                >Order on WhatsApp</a
               >
-                <button class="order-btn">Order on WhatsApp</button>
-              </a>
             </div>
           </div>
         </div>
@@ -345,7 +401,7 @@
     <section id="contact" class="contact">
       <h2>Contact Us</h2>
       <div class="contact-info">
-        📍 Mafarana, Tzaneen<br />
+        📍 Shop No. 3, Stand No. 3, Ntsako Extension, R529, Letsitele, 0885<br />
         📞 +27 71 099 1305<br />
         ✉️ spitiko@gmail.com
       </div>
@@ -353,8 +409,7 @@
       <iframe
         src="https://www.google.com/maps?q=Mafarana,Tzaneen&output=embed"
         loading="lazy"
-      >
-      </iframe>
+      ></iframe>
     </section>
 
     <footer>© 2025 SPITIKO</footer>
@@ -374,10 +429,50 @@
     </a>
 
     <script>
+      // Menu Toggle
       function toggleMenu() {
-        const nav = document.getElementById("navLinks");
-        nav.style.display = nav.style.display === "flex" ? "none" : "flex";
+        document.getElementById("navLinks").classList.toggle("active");
       }
+
+      // Service Worker Registration
+      if ("serviceWorker" in navigator) {
+        window.addEventListener("load", () => {
+          navigator.serviceWorker
+            .register("service-worker.js")
+            .then((reg) => console.log("Service Worker registered", reg))
+            .catch((err) => console.error("Service Worker error", err));
+        });
+      }
+
+      // PWA Install Prompt
+      let deferredPrompt;
+      window.addEventListener("beforeinstallprompt", (e) => {
+        e.preventDefault();
+        deferredPrompt = e;
+
+        const installBtn = document.createElement("button");
+        installBtn.id = "installBtn";
+        installBtn.textContent = "Install SPITIKO App";
+        installBtn.style.position = "fixed";
+        installBtn.style.bottom = "80px";
+        installBtn.style.right = "20px";
+        installBtn.style.padding = "12px 20px";
+        installBtn.style.background = "#ff9800";
+        installBtn.style.color = "#fff";
+        installBtn.style.border = "none";
+        installBtn.style.borderRadius = "8px";
+        installBtn.style.cursor = "pointer";
+        installBtn.style.zIndex = "5000";
+        document.body.appendChild(installBtn);
+
+        installBtn.addEventListener("click", async () => {
+          installBtn.style.display = "none";
+          deferredPrompt.prompt();
+          const { outcome } = await deferredPrompt.userChoice;
+          console.log("User response to install:", outcome);
+          deferredPrompt = null;
+        });
+      });
     </script>
   </body>
 </html>
