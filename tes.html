@@ -9,7 +9,6 @@
       content="SPITIKO — Flame-grilled food, simply done."
     />
 
-    <!-- PWA -->
     <link rel="manifest" href="manifest.json" />
     <meta name="theme-color" content="#0a4d2f" />
     <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -28,7 +27,6 @@
         --ease: cubic-bezier(0.25, 0.8, 0.25, 1);
       }
 
-      /* Reset */
       * {
         margin: 0;
         padding: 0;
@@ -43,7 +41,6 @@
         overflow-x: hidden;
       }
 
-      /* NAV */
       nav {
         position: fixed;
         top: 0;
@@ -69,7 +66,6 @@
         color: var(--accent);
       }
 
-      /* HERO */
       .hero-wrap {
         height: 100vh;
         overflow: hidden;
@@ -88,7 +84,7 @@
             rgba(10, 77, 47, 0.8),
             rgba(10, 77, 47, 0.2)
           ),
-          url("https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?auto=format&fit=crop&w=1400&q=80")
+          url("https://images.unsplash.com/photo-1600891964599-f61ba0e24092?auto=format&fit=crop&w=1400&q=80")
             center/cover no-repeat;
         color: #fff;
         text-shadow: 0 2px 6px rgba(0, 0, 0, 0.4);
@@ -125,7 +121,6 @@
         color: #000;
       }
 
-      /* SECTIONS */
       section {
         max-width: 1100px;
         margin: auto;
@@ -133,30 +128,66 @@
         scroll-snap-align: start;
       }
 
-      /* MENU */
       .menu-title {
         text-align: center;
         font-size: 2.5rem;
-        margin-bottom: 60px;
+        margin-bottom: 40px;
         color: var(--primary);
+      }
+
+      .category-filter {
+        text-align: center;
+        margin-bottom: 40px;
+      }
+      .category-filter button {
+        margin: 0 10px 10px 0;
+        padding: 8px 18px;
+        border: none;
+        border-radius: 50px;
+        cursor: pointer;
+        background: var(--surface);
+        color: var(--primary);
+        font-weight: 600;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+        transition: 0.3s;
+      }
+      .category-filter button.active,
+      .category-filter button:hover {
+        background: var(--accent);
+        color: #fff;
+      }
+
+      .category-title {
+        font-size: 1.8rem;
+        margin: 40px 0 20px;
+        color: var(--primary);
+        border-bottom: 2px solid var(--accent);
+        display: inline-block;
+        padding-bottom: 4px;
       }
       .items {
         display: grid;
         grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
         gap: 40px;
+        transition: all 0.5s ease;
       }
       .item {
         background: var(--surface);
         border-radius: var(--radius);
         overflow: hidden;
         box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
-        transition: 0.4s, transform 0.5s;
-        opacity: 0;
-        transform: translateY(40px);
+        transition: all 0.5s ease, transform 0.5s;
+        opacity: 1;
+        position: relative;
       }
       .item.show {
         opacity: 1;
         transform: translateY(0);
+      }
+      .item.hidden {
+        opacity: 0;
+        transform: translateY(40px);
+        pointer-events: none;
       }
       .item:hover {
         transform: translateY(-6px) scale(1.02);
@@ -190,27 +221,39 @@
         font-weight: 600;
         text-decoration: none;
         font-size: 0.95rem;
+        cursor: pointer;
       }
       .order:hover {
         text-decoration: underline;
       }
 
-      /* Highlight first menu item */
       .items .item:first-child {
-        grid-column: span 2; /* Wider on large screens */
+        grid-column: span 2;
         transform: scale(1.05);
         box-shadow: 0 16px 40px rgba(0, 0, 0, 0.15);
-        border: 2px solid var(--accent); /* optional highlight */
+        border: 2px solid var(--accent);
       }
       @media (max-width: 900px) {
         .items .item:first-child {
-          grid-column: span 1; /* full width on smaller screens */
+          grid-column: span 1;
           transform: scale(1);
           box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
         }
       }
+      .item.featured::before {
+        content: "Featured";
+        position: absolute;
+        top: 12px;
+        left: 12px;
+        background: var(--accent);
+        color: #fff;
+        padding: 6px 12px;
+        border-radius: 12px;
+        font-size: 0.8rem;
+        font-weight: 600;
+        z-index: 10;
+      }
 
-      /* CONTACT */
       .contact {
         text-align: center;
         border-top: 1px solid #ddd;
@@ -232,7 +275,6 @@
         margin-top: 40px;
       }
 
-      /* APP CLIP BUTTON */
       .app-clip {
         position: fixed;
         bottom: 20px;
@@ -252,7 +294,6 @@
         transform: scale(1.05);
       }
 
-      /* FOOTER */
       footer {
         text-align: center;
         padding: 40px;
@@ -261,7 +302,31 @@
       }
     </style>
   </head>
-  <body>
+  <body itemscope itemtype="https://schema.org/Restaurant">
+    <!-- SEO Microdata for Business Info -->
+    <div style="display: none">
+      <span itemprop="name">SPITIKO</span>
+      <span itemprop="telephone">+27 71 099 1305</span>
+      <span itemprop="url">https://yourwebsite.com</span>
+      <div
+        itemprop="address"
+        itemscope
+        itemtype="https://schema.org/PostalAddress"
+      >
+        <span itemprop="streetAddress">Shop No. 3, Ntsako Extension, R529</span>
+        <span itemprop="addressLocality">Letsitele</span>
+        <span itemprop="addressCountry">ZA</span>
+      </div>
+      <div
+        itemprop="geo"
+        itemscope
+        itemtype="https://schema.org/GeoCoordinates"
+      >
+        <meta itemprop="latitude" content="-23.944" />
+        <meta itemprop="longitude" content="30.083" />
+      </div>
+    </div>
+
     <nav>
       <strong>SPITIKO</strong>
       <div><a href="#menu">Menu</a><a href="#contact">Contact</a></div>
@@ -281,45 +346,225 @@
     <section id="menu">
       <h2 class="menu-title">Our Menu</h2>
 
+      <!-- Category Filter Buttons -->
+      <div class="category-filter">
+        <button class="active" data-category="all">All</button>
+        <button data-category="burgers">Burgers</button>
+        <button data-category="ribs">Ribs & BBQ</button>
+        <button data-category="drinks">Drinks</button>
+        <button data-category="sides">Sides & Salads</button>
+      </div>
+
+      <!-- MENU ITEMS -->
       <div class="items">
-        <div class="item">
+        <div
+          class="item featured"
+          data-category="burgers"
+          itemscope
+          itemtype="https://schema.org/MenuItem"
+        >
           <img
-            src="https://images.unsplash.com/photo-1550547660-d9450f859349?auto=format&fit=crop&w=1200&q=80"
+            src="https://images.unsplash.com/photo-1550547660-d9450f859349?auto=format&fit=crop&w=800&q=80"
+            alt="Classic Flame Burger"
+            itemprop="image"
           />
           <div class="item-content">
-            <h3>Classic Flame Burger</h3>
-            <p>200g beef, cheddar, caramelized onions.</p>
+            <h3 itemprop="name">Classic Flame Burger</h3>
+            <p itemprop="description">
+              200g beef, cheddar, caramelized onions.
+            </p>
             <div class="item-footer">
-              <span>R129</span>
-              <a class="order" href="https://wa.me/27710991305">Order</a>
+              <span
+                itemprop="offers"
+                itemscope
+                itemtype="https://schema.org/Offer"
+              >
+                <meta itemprop="priceCurrency" content="ZAR" />
+                <span itemprop="price">129</span>
+              </span>
+              <a
+                class="order"
+                data-name="Classic Flame Burger"
+                data-desc="200g beef, cheddar, caramelized onions"
+                data-price="R129"
+                >Order</a
+              >
             </div>
           </div>
         </div>
 
-        <div class="item">
+        <div
+          class="item"
+          data-category="burgers"
+          itemscope
+          itemtype="https://schema.org/MenuItem"
+        >
           <img
-            src="https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&w=1200&q=80"
+            src="https://images.unsplash.com/photo-1606755962777-0e4cbf98c2a8?auto=format&fit=crop&w=800&q=80"
+            alt="Grilled Chicken Wrap"
+            itemprop="image"
           />
           <div class="item-content">
-            <h3>Smoked BBQ Ribs</h3>
-            <p>Slow-cooked, finished over flame.</p>
+            <h3 itemprop="name">Grilled Chicken Wrap</h3>
+            <p itemprop="description">
+              Marinated chicken, fresh veggies, soft tortilla.
+            </p>
             <div class="item-footer">
-              <span>R219</span>
-              <a class="order" href="https://wa.me/27710991305">Order</a>
+              <span
+                itemprop="offers"
+                itemscope
+                itemtype="https://schema.org/Offer"
+              >
+                <meta itemprop="priceCurrency" content="ZAR" />
+                <span itemprop="price">89</span>
+              </span>
+              <a
+                class="order"
+                data-name="Grilled Chicken Wrap"
+                data-desc="Marinated chicken, fresh veggies, soft tortilla"
+                data-price="R89"
+                >Order</a
+              >
             </div>
           </div>
         </div>
 
-        <div class="item">
+        <div
+          class="item"
+          data-category="ribs"
+          itemscope
+          itemtype="https://schema.org/MenuItem"
+        >
           <img
-            src="https://images.unsplash.com/photo-1572490122747-3968b75cc699?auto=format&fit=crop&w=1200&q=80"
+            src="https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&w=800&q=80"
+            alt="Smoked BBQ Ribs"
+            itemprop="image"
           />
           <div class="item-content">
-            <h3>Craft Milkshakes</h3>
-            <p>Vanilla, chocolate, strawberry, Oreo.</p>
+            <h3 itemprop="name">Smoked BBQ Ribs</h3>
+            <p itemprop="description">Slow-cooked, finished over flame.</p>
             <div class="item-footer">
-              <span>R59</span>
-              <a class="order" href="https://wa.me/27710991305">Order</a>
+              <span
+                itemprop="offers"
+                itemscope
+                itemtype="https://schema.org/Offer"
+              >
+                <meta itemprop="priceCurrency" content="ZAR" />
+                <span itemprop="price">219</span>
+              </span>
+              <a
+                class="order"
+                data-name="Smoked BBQ Ribs"
+                data-desc="Slow-cooked, finished over flame"
+                data-price="R219"
+                >Order</a
+              >
+            </div>
+          </div>
+        </div>
+
+        <div
+          class="item"
+          data-category="drinks"
+          itemscope
+          itemtype="https://schema.org/MenuItem"
+        >
+          <img
+            src="https://images.unsplash.com/photo-1578985545062-69928b1d9587?auto=format&fit=crop&w=800&q=80"
+            alt="Craft Milkshakes"
+            itemprop="image"
+          />
+          <div class="item-content">
+            <h3 itemprop="name">Craft Milkshakes</h3>
+            <p itemprop="description">Vanilla, chocolate, strawberry, Oreo.</p>
+            <div class="item-footer">
+              <span
+                itemprop="offers"
+                itemscope
+                itemtype="https://schema.org/Offer"
+              >
+                <meta itemprop="priceCurrency" content="ZAR" />
+                <span itemprop="price">59</span>
+              </span>
+              <a
+                class="order"
+                data-name="Craft Milkshakes"
+                data-desc="Vanilla, chocolate, strawberry, Oreo"
+                data-price="R59"
+                >Order</a
+              >
+            </div>
+          </div>
+        </div>
+
+        <div
+          class="item"
+          data-category="sides"
+          itemscope
+          itemtype="https://schema.org/MenuItem"
+        >
+          <img
+            src="https://images.unsplash.com/photo-1559561853-9d2efc5b1c95?auto=format&fit=crop&w=800&q=80"
+            alt="Cheesy Fries"
+            itemprop="image"
+          />
+          <div class="item-content">
+            <h3 itemprop="name">Cheesy Fries</h3>
+            <p itemprop="description">
+              Crispy fries topped with cheddar and herbs.
+            </p>
+            <div class="item-footer">
+              <span
+                itemprop="offers"
+                itemscope
+                itemtype="https://schema.org/Offer"
+              >
+                <meta itemprop="priceCurrency" content="ZAR" />
+                <span itemprop="price">R49</span>
+              </span>
+              <a
+                class="order"
+                data-name="Cheesy Fries"
+                data-desc="Crispy fries topped with cheddar and herbs"
+                data-price="R49"
+                >Order</a
+              >
+            </div>
+          </div>
+        </div>
+
+        <div
+          class="item"
+          data-category="sides"
+          itemscope
+          itemtype="https://schema.org/MenuItem"
+        >
+          <img
+            src="https://images.unsplash.com/photo-1617196037652-5f99e71e3d77?auto=format&fit=crop&w=800&q=80"
+            alt="Veggie Salad Bowl"
+            itemprop="image"
+          />
+          <div class="item-content">
+            <h3 itemprop="name">Veggie Salad Bowl</h3>
+            <p itemprop="description">
+              Fresh seasonal vegetables with light dressing.
+            </p>
+            <div class="item-footer">
+              <span
+                itemprop="offers"
+                itemscope
+                itemtype="https://schema.org/Offer"
+              >
+                <meta itemprop="priceCurrency" content="ZAR" />
+                <span itemprop="price">69</span>
+              </span>
+              <a
+                class="order"
+                data-name="Veggie Salad Bowl"
+                data-desc="Fresh seasonal vegetables with light dressing"
+                data-price="R69"
+                >Order</a
+              >
             </div>
           </div>
         </div>
@@ -340,7 +585,7 @@
     </div>
 
     <script>
-      // Reveal menu items
+      // Reveal menu items on scroll
       const items = document.querySelectorAll(".item");
       const observer = new IntersectionObserver(
         (entries) => {
@@ -362,6 +607,54 @@
         hero.querySelector("p").style.transform = `translateY(${
           scrolled * 0.15
         }px)`;
+      });
+
+      // WhatsApp order links
+      const orderLinks = document.querySelectorAll(".order");
+      orderLinks.forEach((link) => {
+        link.addEventListener("click", (e) => {
+          e.preventDefault();
+          const name = link.dataset.name;
+          const desc = link.dataset.desc;
+          const price = link.dataset.price;
+          const message = `Hello! I’d like to order:\n*${name}*\n${desc}\nPrice: ${price}`;
+          const phone = "27710991305";
+          const url = `https://wa.me/${phone}?text=${encodeURIComponent(
+            message
+          )}`;
+          window.open(url, "_blank");
+        });
+      });
+
+      // CATEGORY FILTER LOGIC & SCROLL
+      const filterButtons = document.querySelectorAll(
+        ".category-filter button"
+      );
+      filterButtons.forEach((btn) => {
+        btn.addEventListener("click", () => {
+          filterButtons.forEach((b) => b.classList.remove("active"));
+          btn.classList.add("active");
+          const category = btn.dataset.category;
+
+          let firstItem = null;
+          items.forEach((item) => {
+            if (category === "all" || item.dataset.category === category) {
+              item.classList.remove("hidden");
+              setTimeout(() => (item.style.display = "block"), 10);
+              if (!firstItem) firstItem = item;
+            } else {
+              item.classList.add("hidden");
+              setTimeout(() => (item.style.display = "none"), 500);
+            }
+          });
+
+          // Scroll to first item of category
+          if (firstItem) {
+            const offset =
+              firstItem.getBoundingClientRect().top + window.scrollY - 80;
+            window.scrollTo({ top: offset, behavior: "smooth" });
+          }
+        });
       });
 
       // Service worker
