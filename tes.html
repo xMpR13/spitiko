@@ -195,6 +195,21 @@
         text-decoration: underline;
       }
 
+      /* Highlight first menu item */
+      .items .item:first-child {
+        grid-column: span 2; /* Wider on large screens */
+        transform: scale(1.05);
+        box-shadow: 0 16px 40px rgba(0, 0, 0, 0.15);
+        border: 2px solid var(--accent); /* optional highlight */
+      }
+      @media (max-width: 900px) {
+        .items .item:first-child {
+          grid-column: span 1; /* full width on smaller screens */
+          transform: scale(1);
+          box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+        }
+      }
+
       /* CONTACT */
       .contact {
         text-align: center;
@@ -244,32 +259,6 @@
         color: var(--muted);
         font-size: 13px;
       }
-
-      /* CAROUSEL */
-      .carousel {
-        position: relative;
-        margin-bottom: 60px;
-        overflow: hidden;
-        border-radius: var(--radius);
-      }
-      .carousel-track {
-        display: flex;
-        transition: transform 0.5s ease;
-      }
-      .carousel-item {
-        min-width: 280px;
-        margin-right: 20px;
-        border-radius: var(--radius);
-        overflow: hidden;
-        flex-shrink: 0;
-        background: #fff;
-        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
-      }
-      .carousel-item img {
-        width: 100%;
-        height: 200px;
-        object-fit: cover;
-      }
     </style>
   </head>
   <body>
@@ -292,27 +281,6 @@
     <section id="menu">
       <h2 class="menu-title">Our Menu</h2>
 
-      <!-- Carousel of featured items -->
-      <div class="carousel">
-        <div class="carousel-track">
-          <div class="carousel-item">
-            <img
-              src="https://images.unsplash.com/photo-1550547660-d9450f859349?auto=format&fit=crop&w=1200&q=80"
-            />
-          </div>
-          <div class="carousel-item">
-            <img
-              src="https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&w=1200&q=80"
-            />
-          </div>
-          <div class="carousel-item">
-            <img
-              src="https://images.unsplash.com/photo-1572490122747-3968b75cc699?auto=format&fit=crop&w=1200&q=80"
-            />
-          </div>
-        </div>
-      </div>
-
       <div class="items">
         <div class="item">
           <img
@@ -327,6 +295,7 @@
             </div>
           </div>
         </div>
+
         <div class="item">
           <img
             src="https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&w=1200&q=80"
@@ -340,6 +309,7 @@
             </div>
           </div>
         </div>
+
         <div class="item">
           <img
             src="https://images.unsplash.com/photo-1572490122747-3968b75cc699?auto=format&fit=crop&w=1200&q=80"
@@ -393,15 +363,6 @@
           scrolled * 0.15
         }px)`;
       });
-
-      // Carousel
-      const track = document.querySelector(".carousel-track");
-      let pos = 0;
-      setInterval(() => {
-        pos -= 300;
-        if (Math.abs(pos) >= track.scrollWidth - track.offsetWidth) pos = 0;
-        track.style.transform = `translateX(${pos}px)`;
-      }, 3000);
 
       // Service worker
       if ("serviceWorker" in navigator)
